@@ -1,0 +1,1262 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./assets/vendor/orbs/brand-orbs-host.css" />
+  <title>Venturers 발표 2026.09.07</title>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("./assets/Manrope-Variable.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 200 800;
+      font-display: swap;
+    }
+
+    :root {
+      --stage-width: 1600;
+      --stage-height: 900;
+      --ink: #173f35;
+      --ink-soft: #486052;
+      --paper: #f7f9f4;
+      --white: #ffffff;
+      --lime: #d5f478;
+      --lime-deep: #9ac13d;
+      --pond: #e6eee1;
+      --line: #d4ddcf;
+      --muted: #64715f;
+      --clay: #a76846;
+      --control: rgba(23, 63, 53, 0.94);
+      --shadow: 0 18px 50px #193e3510;
+      --ease: 420ms cubic-bezier(0.2, 0.65, 0.3, 1);
+      --font: "Manrope", "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", Arial, Helvetica, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #0f2b22;
+      color: var(--ink);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button { font: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .viewport {
+      position: fixed;
+      inset: 0;
+    }
+
+    .deck {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: calc(var(--stage-width) * 1px);
+      height: calc(var(--stage-height) * 1px);
+      overflow: hidden;
+      background: var(--paper);
+      transform: translate(-50%, -50%) scale(var(--deck-scale, 1));
+      transform-origin: center;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: 78px 96px 118px;
+      background: var(--paper);
+    }
+
+    .slide[aria-hidden="false"] {
+      display: grid;
+      animation: slide-in var(--ease) both;
+    }
+
+    .slide__inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      min-height: 0;
+    }
+
+    .slide h1,
+    .slide h2,
+    .slide h3,
+    .slide p { margin: 0; word-break: keep-all; overflow-wrap: break-word; }
+
+    .slide h1,
+    .slide h2 {
+      font-weight: 680;
+      letter-spacing: -0.058em;
+    }
+
+    .slide h1 {
+      max-width: 1310px;
+      font-size: 86px;
+      line-height: 1.09;
+    }
+
+    .slide h2 {
+      max-width: 1260px;
+      font-size: 64px;
+      line-height: 1.14;
+    }
+
+    .slide h3 {
+      font-size: 30px;
+      line-height: 1.3;
+      letter-spacing: -0.035em;
+    }
+
+    .slide p {
+      font-size: 31px;
+      line-height: 1.5;
+      letter-spacing: -0.025em;
+    }
+
+    .eyebrow {
+      margin-bottom: 23px !important;
+      color: var(--ink-soft);
+      font-size: 18px !important;
+      font-weight: 750;
+      line-height: 1.4 !important;
+      letter-spacing: 0.11em !important;
+      text-transform: uppercase;
+    }
+
+    .eyebrow--light { color: #dce9df; }
+    .eyebrow--quiet { color: var(--muted); }
+    .lime-mark {
+      display: inline;
+      padding: 0 0.11em 0.05em;
+      border-radius: 0.11em;
+      background: var(--lime);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 19px !important;
+      font-weight: 560;
+      letter-spacing: -0.015em !important;
+    }
+
+    .wordmark { width: 235px; height: auto; }
+
+    .cover .slide__inner { display: flex; flex-direction: column; }
+    .cover .wordmark { margin-bottom: 94px; }
+    .cover h1 { max-width: 1340px; font-size: 88px; }
+    .cover h1 span { display: block; }
+    .cover h1 .second-line { margin-top: 8px; color: var(--ink-soft); }
+    .cover .meta { margin-top: auto; }
+
+    .experiments .slide__inner {
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .experiments h2 { max-width: 760px; }
+    .experiment-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-self: end;
+      margin-top: 50px;
+      border-top: 2px solid var(--ink);
+    }
+
+    .experiment { min-height: 370px; padding: 45px 55px 36px 0; }
+    .experiment + .experiment { padding-left: 55px; border-left: 1px solid var(--line); }
+    .experiment__number {
+      display: block;
+      margin-bottom: 58px;
+      color: var(--lime-deep);
+      font-size: 21px;
+      font-weight: 760;
+    }
+    .experiment h3 { max-width: 520px; font-size: 43px; }
+    .experiment p { margin-top: 18px; color: var(--ink-soft); font-size: 25px; }
+
+    .interview { background: var(--pond); }
+    .interview .slide__inner {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 96px;
+      align-items: center;
+    }
+    .interview h2 { margin-bottom: 30px; }
+    .interview .lead { max-width: 650px; color: var(--ink-soft); }
+    .question-stack {
+      align-self: stretch;
+      display: grid;
+      align-content: center;
+      gap: 34px;
+      padding-left: 78px;
+      border-left: 1px solid #c4d1bd;
+    }
+    .question-stack p {
+      max-width: 630px;
+      padding-bottom: 28px;
+      border-bottom: 2px solid var(--ink);
+      color: var(--ink);
+      font-size: 39px;
+      font-weight: 630;
+      line-height: 1.35;
+    }
+
+    .problem { color: var(--ink); background: var(--lime); }
+    .problem .slide__inner { display: grid; grid-template-rows: auto 1fr auto; }
+    .problem h2 {
+      align-self: center;
+      max-width: 1390px;
+      font-size: 74px;
+      line-height: 1.19;
+    }
+    .problem .contrast { color: #43643d; }
+    .problem .meta { color: var(--ink); opacity: 0.7; }
+
+    .benchmark { color: var(--paper); background: var(--ink); }
+    .benchmark .slide__inner { display: grid; grid-template-rows: auto 1fr auto; }
+    .benchmark h2 {
+      align-self: center;
+      max-width: 1260px;
+      color: var(--paper);
+      font-size: 74px;
+    }
+    .benchmark h2 span { color: var(--lime); }
+    .benchmark .benchmark-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 44px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(247, 249, 244, 0.28);
+    }
+    .benchmark .benchmark-foot p {
+      max-width: 740px;
+      color: #dce9df;
+      font-size: 21px;
+    }
+    .benchmark .fact-label {
+      color: var(--lime);
+      font-size: 18px;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .distinction .slide__inner { display: grid; grid-template-rows: auto 1fr; }
+    .distinction-lines {
+      display: grid;
+      align-self: end;
+      border-top: 2px solid var(--ink);
+    }
+    .distinction-line {
+      display: grid;
+      grid-template-columns: 0.44fr 1fr;
+      align-items: center;
+      min-height: 185px;
+      border-bottom: 1px solid var(--line);
+    }
+    .distinction-line:first-child { color: var(--ink-soft); }
+    .distinction-line:last-child { background: linear-gradient(90deg, transparent 0 44%, var(--pond) 44%); }
+    .distinction-line .label { font-size: 25px; font-weight: 700; }
+    .distinction-line strong { font-size: 47px; font-weight: 660; letter-spacing: -0.045em; }
+
+    .ai-build .slide__inner { display: flex; flex-direction: column; }
+    .ai-build .statement {
+      margin-top: auto;
+      max-width: none;
+      font-size: 150px;
+      line-height: 0.98;
+      letter-spacing: -0.075em;
+    }
+    .ai-build .personal-note { max-width: 1020px; margin-top: 42px; color: var(--ink-soft); }
+
+    .ai-balance { color: var(--paper); background: var(--ink); }
+    .ai-balance .slide__inner { display: flex; flex-direction: column; }
+    .ai-balance h2 { color: var(--paper); font-size: 78px; }
+    .ai-balance h2 span { display: block; }
+    .ai-balance h2 span + span { margin-top: 8px; color: var(--lime); }
+    .balance-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      margin-top: auto;
+      padding-top: 34px;
+      border-top: 1px solid rgba(247, 249, 244, 0.28);
+    }
+    .balance-pair h3 { margin-bottom: 10px; color: var(--lime); }
+    .balance-pair p { max-width: 610px; color: #dce9df; font-size: 24px; }
+
+    .principles .slide__inner {
+      display: grid;
+      grid-template-columns: 0.74fr 1.26fr;
+      gap: 96px;
+      align-items: start;
+    }
+    .principles h2 { max-width: 560px; }
+    .principle-list { border-top: 2px solid var(--ink); }
+    .principle {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 20px;
+      align-items: baseline;
+      padding: 30px 0 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .principle__number { color: var(--lime-deep); font-size: 20px; font-weight: 760; }
+    .principle h3 { font-size: 36px; }
+    .principle p { margin-top: 8px; color: var(--ink-soft); font-size: 21px; }
+
+    .return { background: var(--pond); }
+    .return .slide__inner { display: flex; flex-direction: column; justify-content: space-between; }
+    .return h2 { max-width: 1240px; font-size: 86px; }
+    .return .next {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      align-items: baseline;
+      padding-top: 31px;
+      border-top: 2px solid var(--ink);
+    }
+    .return .next span { color: var(--muted); font-size: 19px; font-weight: 730; }
+    .return .next p { max-width: 1040px; font-size: 28px; }
+
+    .questions { background: var(--lime); overflow: hidden; }
+    .questions .slide__inner {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      align-items: center;
+    }
+    .questions h2 { max-width: 900px; font-size: 72px; line-height: 1.18; }
+    .questions .meta { margin-top: 30px; color: var(--ink-soft); }
+    .questions .otter {
+      width: 485px;
+      justify-self: center;
+      transform: translate(30px, 46px);
+    }
+
+    /* v2 visual language */
+    .bg-art {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .slide-label {
+      color: var(--muted);
+      font-size: 20px !important;
+      font-weight: 700;
+    }
+    .cover-v2 .slide__inner { display: flex; flex-direction: column; }
+    .cover-v2 .wordmark { margin-bottom: 70px; }
+    .cover-v2 h1 { max-width: 1320px; font-size: 87px; }
+    .cover-v2 h1 span { display: block; }
+    .cover-v2 h1 span + span { margin-top: 7px; color: var(--ink-soft); }
+    .cover-v2 .meta { margin-top: auto; }
+    .cover-v2 .title-pebble { position: absolute; right: 28px; bottom: 62px; width: 335px; }
+    .cover-v2 .cover-face { position: absolute; right: 8px; top: 0; width: 82px; height: 82px; }
+
+    #deck-v2 .slide:not(.cover-v2):not(.summer-overview):not(.agenda):not(.section-divider)::before {
+      position: absolute;
+      z-index: 3;
+      top: 27px;
+      right: 96px;
+      color: var(--section-color, var(--muted));
+      font-size: 17px;
+      font-weight: 760;
+      letter-spacing: 0.04em;
+    }
+    .kpc::before,
+    .problem-journey::before { content: "01 · 현장에서 발견한 문제"; }
+    .ai-rival::before,
+    .locomo-explain::before,
+    .score::before,
+    .memory-interface::before { content: "02 · AI 시대의 경쟁력"; }
+    .vision-human::before,
+    .vision-stack::before,
+    .rename::before { content: "03 · 우리의 비전과 Otter Mem"; }
+    .roadmap::before,
+    .learning::before { content: "04 · 다음 실행"; }
+    .community::before,
+    .qa-v2::before,
+    .goodbye::before { content: "마무리"; }
+    .kpc::before,
+    .ai-rival::before,
+    .vision-human::before,
+    .roadmap::before { color: var(--section-accent, var(--ink)); font-size: 20px; font-weight: 820; }
+    .ai-rival,
+    .vision-human { --section-color: #dce9df; --section-accent: var(--lime); }
+
+    .agenda { background: var(--paper); overflow: hidden; }
+    .agenda .slide__inner { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 82px; align-items: center; }
+    .agenda h2 { max-width: 570px; font-size: 59px; }
+    .agenda .agenda-lead { margin-top: 30px; max-width: 550px; color: var(--ink-soft); font-size: 25px; }
+    .agenda .agenda-lead,
+    .section-divider .divider-line { word-break: keep-all; overflow-wrap: break-word; }
+    .agenda-list { border-top: 2px solid var(--ink); }
+    .agenda-item { display: grid; grid-template-columns: 68px 1fr; gap: 23px; padding: 24px 0 26px; border-bottom: 1px solid var(--line); }
+    .agenda-item span { color: var(--lime-deep); font-size: 19px; font-weight: 820; }
+    .agenda-item h3 { font-size: 31px; }
+    .agenda-item p { margin-top: 5px; color: var(--ink-soft); font-size: 19px; }
+    .agenda-close { margin-top: 18px; color: var(--muted); font-size: 17px; font-weight: 700; text-align: right; }
+
+    .summer-overview { overflow: hidden; background: var(--paper); }
+    .summer-overview .slide__inner { display: grid; grid-template-rows: auto 1fr; gap: 27px; }
+    .summer-overview h2 { font-size: 56px; }
+    .vacation-layout { display: grid; grid-template-rows: 340px 1fr; gap: 20px; min-height: 0; }
+    .vacation-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .vacation-photo {
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+      border-radius: 20px;
+      background: var(--pond);
+      box-shadow: var(--shadow);
+    }
+    .vacation-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .vacation-photo:first-child img { object-position: center top; }
+    .vacation-photo:last-child img { object-position: center top; }
+    .vacation-photo figcaption {
+      position: absolute;
+      left: 16px;
+      bottom: 15px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--paper);
+      background: rgba(23,63,53,.9);
+      font-size: 15px;
+      font-weight: 720;
+    }
+    .vacation-list { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); border-top: 2px solid var(--ink); }
+    .vacation-item { min-width: 0; padding: 12px 16px 10px 0; }
+    .vacation-item + .vacation-item { padding-left: 16px; border-left: 1px solid var(--line); }
+    .vacation-item:nth-child(5) { padding-left: 0; border-left: 0; }
+    .vacation-item:nth-child(n+5) { padding-top: 13px; border-top: 1px solid var(--line); }
+    .vacation-item span { display: block; color: var(--lime-deep); font-size: 13px; font-weight: 820; }
+    .vacation-item h3 { margin-top: 6px; font-size: 21px; line-height: 1.23; }
+    .vacation-item p { margin-top: 3px; color: var(--ink-soft); font-size: 14px; line-height: 1.32; }
+
+    .section-divider { overflow: hidden; }
+    .section-divider .slide__inner { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 80px; align-items: center; }
+    .divider-number { display: block; margin-bottom: 24px; color: var(--lime-deep); font-size: 24px; font-weight: 830; letter-spacing: 0.12em; }
+    .section-divider h2 { max-width: 720px; font-size: 78px; }
+    .divider-line { margin-top: 30px; max-width: 680px; color: var(--ink-soft); font-size: 27px; }
+    .divider-art { width: 100%; height: 540px; }
+    .section-divider--02 { color: var(--paper); background: var(--ink); }
+    .section-divider--02 h2 { color: var(--paper); }
+    .section-divider--02 .divider-number,
+    .section-divider--02 .divider-line { color: var(--lime); }
+    .section-divider--03 { background: var(--lime); }
+    .section-divider--04 { background: var(--pond); }
+
+    .summer .slide__inner { display: grid; grid-template-rows: auto 1fr; }
+    .summer-list { align-self: end; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--ink); }
+    .summer-item { min-height: 420px; padding: 38px 42px 30px 0; }
+    .summer-item + .summer-item { padding-left: 42px; border-left: 1px solid var(--line); }
+    .summer-icon { width: 100%; height: 145px; margin-bottom: 30px; }
+    .summer-item h3 { font-size: 38px; }
+    .summer-item p { margin-top: 12px; color: var(--ink-soft); font-size: 23px; }
+
+    .kpc { background: var(--pond); }
+    .kpc .slide__inner { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 76px; align-items: center; }
+    .kpc h2 { max-width: 610px; font-size: 59px; }
+    .kpc .kpc-context { margin-top: 28px; max-width: 590px; color: var(--ink-soft); font-size: 24px; }
+    .kpc .kpc-context strong { color: var(--ink); }
+    .kpc-flow { width: 100%; height: 580px; }
+
+    .problem-journey { background: var(--pond); }
+    .problem-journey .slide__inner { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 86px; align-items: center; }
+    .problem-journey h2 { max-width: 590px; font-size: 61px; }
+    .problem-journey .journey-copy { margin-top: 30px; max-width: 590px; color: var(--ink-soft); font-size: 27px; }
+    .problem-path { width: 100%; height: 590px; }
+
+    .brand-problem .slide__inner { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 92px; align-items: center; }
+    .brand-problem h2 { max-width: 560px; }
+    .brand-problem .subtitle { margin-top: 26px; max-width: 560px; color: var(--ink-soft); font-size: 27px; }
+    .brand-signals { position: relative; height: 560px; }
+    .brand-signal {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 360px;
+      min-height: 142px;
+      padding: 26px 34px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 28px;
+      font-weight: 660;
+      line-height: 1.35;
+      text-align: center;
+    }
+    .brand-signal:nth-child(1) { top: 12px; left: 36px; transform: rotate(-3deg); }
+    .brand-signal:nth-child(2) { top: 192px; right: 18px; transform: rotate(2deg); }
+    .brand-signal:nth-child(3) { bottom: 8px; left: 78px; transform: rotate(-1deg); }
+
+    .rename { background: var(--lime); overflow: hidden; }
+    .rename .slide__inner { display: grid; grid-template-columns: 0.87fr 1.13fr; gap: 80px; align-items: center; }
+    .old-name { color: #49643f; font-size: 72px; font-weight: 550; letter-spacing: -0.045em; text-decoration: line-through; text-decoration-thickness: 4px; }
+    .rename-copy { margin-top: 42px; max-width: 560px; color: var(--ink); font-size: 27px; word-break: keep-all; overflow-wrap: break-word; }
+    .rename-issues { display: flex; flex-wrap: wrap; gap: 10px 13px; margin-top: 24px; }
+    .rename-issues span { padding: 8px 13px; border: 1px solid rgba(23,63,53,.45); border-radius: 999px; color: var(--ink-soft); font-size: 17px; font-weight: 650; }
+    .rename .wordmark { width: 430px; }
+    .rename-new { display: grid; justify-items: center; gap: 32px; }
+    .rename-new p { max-width: 580px; color: var(--ink-soft); font-size: 25px; text-align: center; }
+    .rename-wave { position: absolute; right: -10px; bottom: 40px; width: 830px; height: 170px; }
+
+    .locomo-explain { background: var(--pond); }
+    .locomo-explain .slide__inner { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 72px; align-items: center; }
+    .locomo-explain h2 { max-width: 560px; font-size: 60px; }
+    .locomo-explain .explain-copy { margin-top: 28px; max-width: 560px; color: var(--ink-soft); font-size: 25px; }
+    .locomo-source { display: inline-block; margin-top: 22px; color: var(--ink-soft); font-size: 17px; text-underline-offset: 4px; }
+    .locomo-story { width: 100%; height: 570px; }
+
+    .score { color: var(--ink); background: var(--paper); }
+    .score .slide__inner { display: grid; grid-template-rows: auto 1fr auto; gap: 12px; }
+    .score-title { display: grid; grid-template-columns: 1fr auto; gap: 50px; align-items: end; }
+    .score h2 { color: var(--ink); font-size: 46px; }
+    .comparison-callout { max-width: 500px; padding-left: 24px; border-left: 4px solid var(--lime-deep); color: var(--ink); font-size: 21px !important; font-weight: 740; line-height: 1.4 !important; }
+    .score-comparison { align-self: center; }
+    .score-chart { display: block; width: 960px; height: 300px; margin: 0 auto; }
+    .score-conditions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .score-condition { padding-top: 8px; border-top: 2px solid var(--line); }
+    .score-condition strong { display: block; margin-bottom: 3px; color: var(--ink); font-size: 21px; }
+    .score-condition span { display: block; color: var(--ink-soft); font-size: 18px; line-height: 1.35; }
+    .score-footer { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: start; padding-top: 8px; border-top: 1px solid var(--line); }
+    .score-footer p { color: var(--ink-soft); font-size: 17px; line-height: 1.4; }
+    .score-footer strong { color: #587518; }
+    .score-sources { display: flex; gap: 14px; font-size: 17px; white-space: nowrap; }
+    .score-sources a { color: var(--ink-soft); text-underline-offset: 4px; }
+
+    .two-questions .slide__inner { display: grid; grid-template-rows: auto 1fr; }
+    .question-planes { display: grid; grid-template-columns: 1fr 1fr; align-self: end; margin-top: 42px; border-top: 2px solid var(--ink); }
+    .question-plane { min-height: 390px; padding: 42px 54px 34px 0; }
+    .question-plane + .question-plane { padding-left: 54px; border-left: 1px solid var(--line); background: linear-gradient(135deg, transparent 0 64%, var(--pond) 64%); }
+    .question-plane .plane-kicker { color: var(--lime-deep); font-size: 19px; font-weight: 750; }
+    .question-plane h3 { margin-top: 66px; max-width: 560px; font-size: 43px; }
+    .question-plane p { margin-top: 18px; max-width: 560px; color: var(--ink-soft); font-size: 24px; }
+
+    .ai-rival { color: var(--paper); background: var(--ink); overflow: hidden; }
+    .ai-rival .slide__inner { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 8px; }
+    .ai-rival h2 { color: var(--paper); font-size: 54px; }
+    .astra-proof { display: flex; gap: 18px; align-items: baseline; margin-top: 12px; color: #dce9df; font-size: 17px; }
+    .astra-proof strong { color: var(--lime); }
+    .astra-proof a { color: #dce9df; text-underline-offset: 4px; }
+    .ai-orbit { position: relative; align-self: center; height: 260px; }
+    .ai-orbit svg { width: 100%; height: 100%; }
+    .ai-core { position: absolute; inset: 50% auto auto 50%; color: var(--ink); font-size: 54px; font-weight: 800; transform: translate(-50%, -50%); }
+    .orbit-label { position: absolute; top: 50%; width: 360px; transform: translateY(-50%); }
+    .orbit-label--left { left: 22px; text-align: right; }
+    .orbit-label--right { right: 22px; }
+    .orbit-label strong { display: block; color: var(--lime); font-size: 30px; }
+    .orbit-label span { display: block; margin-top: 8px; color: #dce9df; font-size: 21px; line-height: 1.45; }
+    .astra-layout { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: center; }
+    .astra-demo { width: 100%; max-width: 820px; margin: 0; overflow: hidden; border: 1px solid rgba(247,249,244,.25); border-radius: 20px; background: #050608; box-shadow: 0 18px 48px rgba(0,0,0,.22); }
+    .astra-video-shell { position: relative; height: 530px; overflow: hidden; background: #050608; }
+    .astra-video-shell > iframe { position: absolute; z-index: 1; top: 0; left: 50%; width: 640px; height: 740px; border: 0; background: transparent; transform: translateX(-50%) scale(.716216); transform-origin: top center; }
+    .astra-video-shell > iframe[hidden] { display: none; }
+    .astra-video-start { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 18px; width: 100%; border: 0; background: radial-gradient(circle at 50% 42%, #29483e 0, #101d19 48%, #050608 100%); color: var(--paper); cursor: pointer; }
+    .astra-video-start[hidden] { display: none; }
+    .astra-video-start__icon { display: grid; width: 88px; height: 88px; padding-left: 7px; place-items: center; border: 2px solid var(--lime); border-radius: 50%; background: rgba(213,244,120,.12); color: var(--lime); font-size: 39px; line-height: 1; }
+    .astra-video-start strong { font-size: 25px; }
+    .astra-video-start small { color: #a9b9ae; font-size: 16px; }
+    .astra-demo figcaption { display: flex; align-items: baseline; gap: 12px; min-height: 42px; padding: 10px 15px 12px; color: #dce9df; font-size: 15px; line-height: 1.35; }
+    .astra-demo figcaption strong { color: var(--lime); font-size: 16px; white-space: nowrap; }
+    .astra-demo figcaption span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .astra-demo figcaption a { margin-left: auto; color: #dce9df; text-underline-offset: 4px; white-space: nowrap; }
+    .astra-capabilities { display: grid; gap: 18px; align-content: center; }
+    .astra-orb-stage { display: grid; width: 176px; height: 176px; justify-self: center; overflow: visible; place-items: center; }
+    .astra-orb-stage .shader-frame { width: 56px; height: 56px; transform: scale(3); transform-origin: center; }
+    .astra-message { display: grid; gap: 13px; padding-top: 16px; border-top: 1px solid rgba(247,249,244,.28); }
+    .astra-message strong { color: var(--paper); font-size: 27px; line-height: 1.3; }
+    .astra-message p { color: #dce9df; font-size: 20px; line-height: 1.42; }
+    .astra-message__bridge { margin-top: 4px; padding: 14px 16px; border-radius: 14px; background: var(--lime); color: var(--ink) !important; font-weight: 760; }
+
+    .memory-interface { background: var(--paper); }
+    .memory-interface .slide__inner { display: grid; grid-template-rows: auto 1fr auto; }
+    .memory-interface h2 { max-width: 1060px; font-size: 55px; }
+    .memory-map { align-self: center; width: 100%; height: 370px; }
+    .memory-interface .design-task { padding-top: 12px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 20px; }
+
+    .vision-human { color: var(--paper); background: var(--ink); }
+    .vision-human .slide__inner { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 80px; align-items: center; }
+    .vision-human h2 { max-width: 650px; color: var(--paper); font-size: 58px; }
+    .vision-human .vision-line { margin-top: 33px; max-width: 630px; color: var(--lime); font-size: 28px; font-weight: 650; }
+    .vision-human .means { margin-top: 28px; color: #dce9df; font-size: 21px; }
+    .human-orbit { width: 100%; height: 590px; }
+
+    .vision-stack { background: var(--pond); }
+    .vision-stack .slide__inner { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 76px; align-items: start; }
+    .vision-stack h2 { max-width: 510px; font-size: 59px; }
+    .vision-stack .stack-note { margin-top: 28px; max-width: 480px; color: var(--ink-soft); font-size: 23px; }
+    .product-levels { border-top: 2px solid var(--ink); }
+    .product-level { display: grid; grid-template-columns: 125px 1fr; gap: 23px; padding: 23px 0 25px; border-bottom: 1px solid #c4d1bd; }
+    .product-level span { color: var(--lime-deep); font-size: 17px; font-weight: 800; }
+    .product-level h3 { font-size: 30px; }
+    .product-level p { margin-top: 5px; color: var(--ink-soft); font-size: 19px; }
+
+    .rules .slide__inner { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 85px; }
+    .rules h2 { max-width: 500px; }
+    .rules .return-value { margin-top: 34px; max-width: 470px; color: var(--ink-soft); font-size: 24px; }
+    .rule-flow { align-self: center; }
+    .rule-step { display: grid; grid-template-columns: 74px 1fr; gap: 24px; align-items: start; padding: 25px 0 28px; border-top: 1px solid var(--line); }
+    .rule-step:first-child { border-top: 2px solid var(--ink); }
+    .rule-step:last-child { border-bottom: 1px solid var(--line); }
+    .rule-step span { color: var(--lime-deep); font-size: 19px; font-weight: 760; }
+    .rule-step h3 { font-size: 35px; }
+    .rule-step p { margin-top: 7px; color: var(--ink-soft); font-size: 21px; }
+
+    .roadmap { background: var(--pond); }
+    .roadmap .slide__inner { display: grid; grid-template-columns: .67fr 1.33fr; gap: 72px; align-items: center; }
+    .roadmap-heading { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+    .roadmap h2 { max-width: 610px; font-size: 56px; }
+    .roadmap .funding { margin-top: 30px; max-width: 590px; color: var(--ink-soft); font-size: 23px; }
+    .funnel-wrap { position: relative; align-self: center; height: 590px; }
+    .funnel-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 13px; color: var(--muted); font-size: 16px; font-weight: 720; }
+    .funnel-label strong { color: var(--ink); font-size: 19px; }
+    .funnel-flow { display: flex; flex-direction: column; align-items: center; gap: 3px; width: calc(100% - 116px); }
+    .funnel-stage {
+      width: var(--stage-w, 100%);
+      height: 89px;
+      padding: 2px;
+      background: var(--ink);
+      clip-path: polygon(3% 0, 97% 0, 92% 100%, 8% 100%);
+    }
+    .funnel-stage__inner {
+      display: grid;
+      grid-template-columns: 46px minmax(0, .8fr) minmax(0, 1.2fr);
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 0 54px;
+      background: var(--paper);
+      clip-path: inherit;
+    }
+    .funnel-stage--focus .funnel-stage__inner { background: var(--lime); }
+    .funnel-stage__number { color: var(--lime-deep); font-size: 16px; font-weight: 820; }
+    .funnel-stage--focus .funnel-stage__number { color: var(--ink); }
+    .funnel-stage h3 { font-size: 25px; line-height: 1.2; }
+    .funnel-stage p { color: var(--ink-soft); font-size: 17px; line-height: 1.35; }
+    .funnel-stage strong { color: var(--ink); }
+    .funnel-stage:last-child { height: 78px; clip-path: polygon(3% 0, 97% 0, 82% 100%, 18% 100%); }
+    .funnel-return { position: absolute; right: 0; top: 94px; width: 126px; height: 350px; }
+    .funnel-loop { position: absolute; right: 2px; bottom: 57px; width: 185px; color: var(--ink); font-size: 16px; font-weight: 700; line-height: 1.4; text-align: right; }
+    .jcurve-goal { display: flex; align-items: center; gap: 11px; margin-top: auto; padding-top: 32px; color: var(--muted); font-size: 17px; font-weight: 700; white-space: nowrap; }
+    .jcurve-goal svg { width: 86px; height: 36px; }
+
+    .learning .slide__inner { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 84px; align-items: center; }
+    .learning .amount { display: block; margin-top: 28px; color: var(--ink); font-size: 150px; font-weight: 750; letter-spacing: -0.075em; line-height: 1; }
+    .learning .plan-label { margin-top: 18px; color: var(--ink-soft); font-size: 28px; }
+    .learning .more { margin-top: 34px; color: var(--muted); font-size: 20px; }
+    .learning-pebbles { width: 100%; height: 560px; }
+
+    .community { color: var(--ink); background: var(--lime); }
+    .community .slide__inner { display: grid; grid-template-columns: 0.73fr 1.27fr; gap: 76px; align-items: start; }
+    .community h2 { max-width: 540px; font-size: 61px; }
+    .community .community-note { margin-top: 30px; max-width: 500px; color: var(--ink-soft); font-size: 24px; }
+    .hard-questions { border-top: 2px solid var(--ink); }
+    .hard-question { display: grid; grid-template-columns: 66px 1fr; gap: 24px; padding: 31px 0 34px; border-bottom: 1px solid rgba(23,63,53,.28); }
+    .hard-question span { font-size: 19px; font-weight: 800; }
+    .hard-question p { max-width: 710px; font-size: 30px; font-weight: 640; line-height: 1.38; }
+
+    .qa-v2 { background: var(--lime); overflow: hidden; }
+    .qa-v2 .slide__inner { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 60px; align-items: center; }
+    .qa-v2 h2 { max-width: 880px; font-size: 70px; }
+    .qa-v2 .meta { margin-top: 28px; color: var(--ink-soft); }
+    .qa-network { width: 100%; height: 560px; }
+
+    .goodbye { background: var(--paper); overflow: hidden; }
+    .goodbye .slide__inner { display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; }
+    .goodbye h2 { max-width: 720px; font-size: 82px; }
+    .goodbye .thanks { margin-top: 27px; color: var(--ink-soft); font-size: 29px; }
+    .goodbye .otter { width: 515px; justify-self: center; transform: translateY(40px); }
+    .goodbye-wave { position: absolute; right: -40px; bottom: 14px; width: 900px; height: 185px; }
+    .legacy-deck { display: none !important; }
+
+    .chrome {
+      position: fixed;
+      z-index: 20;
+      left: 50%;
+      bottom: calc(18px * var(--ui-scale, 1));
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      padding: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      color: white;
+      background: var(--control);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+      transform: translateX(-50%) scale(var(--ui-scale, 1));
+      transform-origin: center bottom;
+    }
+    .chrome button {
+      display: grid;
+      min-width: 42px;
+      height: 42px;
+      padding: 0 13px;
+      place-items: center;
+      border: 0;
+      border-radius: 9px;
+      color: inherit;
+      background: transparent;
+      cursor: pointer;
+    }
+    .chrome button:hover,
+    .chrome button:focus-visible { background: rgba(255, 255, 255, 0.14); }
+    .chrome button:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+    .slide-count {
+      min-width: 78px;
+      color: #e8efe9;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+    .progress {
+      position: fixed;
+      z-index: 21;
+      inset: auto 0 0;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .progress__bar {
+      width: var(--progress, 0%);
+      height: 100%;
+      background: var(--lime);
+      transition: width var(--ease);
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+    }
+
+    @media print {
+      @page { size: 16in 9in; margin: 0; }
+      html, body { width: auto; height: auto; overflow: visible; background: white; }
+      .viewport { position: static; display: block; }
+      .deck { position: static; display: flex; flex-direction: column; width: auto; height: auto; transform: none; overflow: visible; }
+      .slide,
+      .slide[aria-hidden="true"],
+      .slide[aria-hidden="false"] {
+        position: relative;
+        display: grid !important;
+        width: 16in;
+        height: 9in;
+        break-after: page;
+        page-break-after: always;
+        animation: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .chrome, .progress { display: none !important; }
+      .cover-v2 { order: 1; }
+      .summer-overview { order: 2; }
+      .agenda { order: 3; }
+      .section-divider--01 { order: 4; }
+      .kpc { order: 5; }
+      .problem-journey { order: 6; }
+      .section-divider--02 { order: 7; }
+      .ai-rival { order: 8; }
+      .locomo-explain { order: 9; }
+      .score { order: 10; }
+      .memory-interface { order: 11; }
+      .section-divider--03 { order: 12; }
+      .vision-human { order: 13; }
+      .vision-stack { order: 14; }
+      .rename { order: 15; }
+      .section-divider--04 { order: 16; }
+      .roadmap { order: 17; }
+      .learning { order: 18; }
+      .community { order: 19; }
+      .qa-v2 { order: 20; }
+      .goodbye { order: 21; }
+    }
+  </style>
+</head>
+<body>
+  <main class="viewport" aria-label="Venturers 발표 자료">
+    <div class="deck" id="deck-v2">
+      <section class="slide cover-v2" aria-hidden="false">
+        <svg class="bg-art" viewBox="0 0 1600 900" aria-hidden="true">
+          <path d="M1020 716 C1190 642 1370 657 1600 574" fill="none" stroke="#d4ddcf" stroke-width="3" />
+          <path d="M1030 756 C1210 682 1400 700 1600 623" fill="none" stroke="#e6eee1" stroke-width="18" />
+          <ellipse cx="1385" cy="584" rx="82" ry="39" transform="rotate(-12 1385 584)" fill="#d5f478" />
+          <path d="M1342 580 h82 M1355 596 h58" stroke="#173f35" stroke-width="5" stroke-linecap="round" />
+        </svg>
+        <div class="slide__inner">
+          <img class="wordmark" src="./assets/wordmark.svg" alt="Otter Mem" />
+          <img class="cover-face" src="./assets/favicon.svg" alt="" />
+          <p class="eyebrow eyebrow--quiet">2026 여름 창업 회고</p>
+          <h1>Venturers 발표</h1>
+          <p class="meta">김정욱&nbsp;&nbsp; Venturers&nbsp;&nbsp; 2026.09.07</p>
+        </div>
+      </section>
+
+      <section class="slide summer-overview" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow eyebrow--quiet">2026 여름 · 방학 활동 모아보기</p><h2>밖에서 묻고, 안에서 검증했다</h2></div>
+          <div class="vacation-layout">
+            <div class="vacation-photos" aria-label="미국 인터뷰와 뉴욕 피칭 현장 사진">
+              <figure class="vacation-photo"><img src="./assets/us-street-interview-02.jpg" alt="미국 현지 인터뷰를 마친 뒤 세 사람이 거리에서 함께 찍은 모습" /><figcaption>미국 현지 인터뷰 · 2026.07</figcaption></figure>
+              <figure class="vacation-photo"><img src="./assets/nyc-pitch-01.jpg" alt="뉴욕 행사장에서 피치덱 화면을 띄우고 Otter Mem의 기억 제품을 설명하는 모습" /><figcaption>뉴욕 피칭 · 2026.07</figcaption></figure>
+            </div>
+            <div class="vacation-list" aria-label="방학의 여덟 가지 창업 활동">
+              <article class="vacation-item"><span>01 · LISTEN</span><h3>미국 현지 인터뷰</h3><p>고객발견 · 직접 묻고 듣기</p></article>
+              <article class="vacation-item"><span>02 · PITCH</span><h3>뉴욕 피칭</h3><p>Startup Valley · 피치덱 발표</p></article>
+              <article class="vacation-item"><span>03 · FIELD</span><h3>KPC 실무자 AI 교육</h3><p>6일 보조강사</p></article>
+              <article class="vacation-item"><span>04 · EVAL</span><h3>AI 기억력 테스트</h3><p>자체 평가 · 84.95%</p></article>
+              <article class="vacation-item"><span>05 · BRAND</span><h3>Otter Mem 리브랜딩</h3><p>Nevermind에서 이름 전환</p></article>
+              <article class="vacation-item"><span>06 · CHALLENGE</span><h3>U300 도전</h3><p>1:1 멘토링 3회 완료 / 별도 심사 미선발</p></article>
+              <article class="vacation-item"><span>07 · BUILD</span><h3>창업동아리 선정·운영</h3><p>선정 후 활동 운영</p></article>
+              <article class="vacation-item"><span>08 · SUBMIT</span><h3>지원·컨설팅 도전</h3><p>모두의창업 1R 통과 · YC 지원 · 포스텍 BM 제출</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide agenda" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow eyebrow--quiet">오늘의 흐름</p><h2>현장에서 시작해,<br />비전과 다음 검증으로</h2><p class="agenda-lead">방학의 경험을 네 가지 질문으로 연결했습니다.</p></div>
+          <div>
+            <div class="agenda-list">
+              <article class="agenda-item"><span>01</span><div><h3>현장에서 발견한 문제</h3><p>KPC 실무자 교육 · Problem first</p></div></article>
+              <article class="agenda-item"><span>02</span><div><h3>AI 시대의 경쟁력</h3><p>GPT-6 Astra · LoCoMo · 사람이 읽는 기억</p></div></article>
+              <article class="agenda-item"><span>03</span><div><h3>우리의 비전과 Otter Mem</h3><p>인간다운 삶 · 작은 시작 · 리브랜딩</p></div></article>
+              <article class="agenda-item"><span>04</span><div><h3>다음 실행</h3><p>텍스코어 자금 · 서울 100+ 인터뷰 · 파일럿 · 교육</p></div></article>
+            </div>
+            <p class="agenda-close">함께 묻고 답하기 · Q&amp;A</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide section-divider section-divider--01" aria-hidden="true">
+        <div class="slide__inner">
+          <div><span class="divider-number">SECTION 01</span><h2>현장에서<br />발견한 문제</h2><p class="divider-line">풀어야 할 문제는 어디서 발견되는가?</p></div>
+          <svg class="divider-art" viewBox="0 0 680 540" aria-hidden="true">
+            <path d="M80 430 C177 349 223 386 301 290 S444 213 591 101" fill="none" stroke="#9fb199" stroke-width="7" stroke-linecap="round" />
+            <circle cx="83" cy="427" r="64" fill="#f7f9f4" stroke="#173f35" stroke-width="4" />
+            <circle cx="302" cy="289" r="79" fill="#e6eee1" stroke="#173f35" stroke-width="4" />
+            <circle cx="591" cy="101" r="96" fill="#d5f478" stroke="#173f35" stroke-width="4" />
+            <path d="M276 289 h52 M302 263 v52" stroke="#173f35" stroke-width="6" stroke-linecap="round" />
+          </svg>
+        </div>
+      </section>
+
+
+      <section class="slide kpc" aria-hidden="true">
+        <div class="slide__inner">
+          <div>
+            <p class="eyebrow eyebrow--quiet">KPC 국제물류 실무자 AI 교육 · 6일 보조강사</p>
+            <h2>문제를 아는 사람이 만든 것은 달랐다</h2>
+            <p class="kpc-context"><strong>20년 경력의 참여자도 있었다.</strong><br />참여자 소속 예시 · 삼성물산, 판토스, 한진택배 등</p>
+          </div>
+          <svg class="kpc-flow" viewBox="0 0 820 580" role="img" aria-label="6일간의 교육에서 도메인 지식이 정확한 업무 병목과 설득력 있는 해결책으로 이어진 관찰">
+            <path d="M74 74 H742" fill="none" stroke="#9fb199" stroke-width="4" stroke-linecap="round" />
+            <g fill="#d5f478" stroke="#173f35" stroke-width="3"><circle cx="74" cy="74" r="11"/><circle cx="208" cy="74" r="11"/><circle cx="342" cy="74" r="11"/><circle cx="476" cy="74" r="11"/><circle cx="610" cy="74" r="11"/><circle cx="742" cy="74" r="11"/></g>
+            <text x="74" y="41" fill="#64715f" font-size="19" font-weight="750">DAY 1</text><text x="742" y="41" text-anchor="end" fill="#64715f" font-size="19" font-weight="750">DAY 6</text>
+            <path d="M230 326 H334 M488 326 H592" fill="none" stroke="#173f35" stroke-width="5" stroke-linecap="round" />
+            <path d="M322 312 L342 326 L322 340 M580 312 L600 326 L580 340" fill="none" stroke="#173f35" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            <ellipse cx="140" cy="326" rx="116" ry="86" fill="#f7f9f4" stroke="#173f35" stroke-width="4" />
+            <ellipse cx="410" cy="326" rx="116" ry="86" fill="#d5f478" stroke="#173f35" stroke-width="4" />
+            <ellipse cx="682" cy="326" rx="116" ry="86" fill="#f7f9f4" stroke="#173f35" stroke-width="4" />
+            <text x="140" y="316" text-anchor="middle" fill="#173f35" font-size="27" font-weight="800">도메인 지식</text><text x="140" y="351" text-anchor="middle" fill="#486052" font-size="20">현장 경험</text>
+            <text x="410" y="316" text-anchor="middle" fill="#173f35" font-size="26" font-weight="800">정확한 업무 병목</text><text x="410" y="351" text-anchor="middle" fill="#486052" font-size="20">반복되는 문제</text>
+            <text x="682" y="316" text-anchor="middle" fill="#173f35" font-size="25" font-weight="800">설득력 있는 해결책</text><text x="682" y="351" text-anchor="middle" fill="#486052" font-size="20">짧은 AI 실습</text>
+            <path d="M142 468 C272 528 542 528 682 468" fill="none" stroke="#9fb199" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 12" />
+            <text x="410" y="544" text-anchor="middle" fill="#173f35" font-size="23" font-weight="720">도메인 지식이 문제의 질을 바꾼다</text>
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide problem-journey" aria-hidden="true">
+        <div class="slide__inner">
+          <div>
+            <p class="eyebrow">Problem first</p>
+            <h2>좋아한다는 말과<br />돈을 낸다는 행동</h2>
+            <p class="journey-copy">사람들이 원한다고 말해도, 지불의사는 낮을 수 있다.</p>
+          </div>
+          <svg class="problem-path" viewBox="0 0 780 590" role="img" aria-label="사용자 맞춤을 반복하고 낮은 지불 의사를 확인하며 Problem first로 생각이 선명해진 과정">
+            <path d="M92 96 C286 89 244 246 418 249 S596 414 692 463" fill="none" stroke="#9fb199" stroke-width="6" stroke-linecap="round" />
+            <circle cx="92" cy="96" r="46" fill="#f7f9f4" stroke="#173f35" stroke-width="5" />
+            <circle cx="418" cy="249" r="46" fill="#f7f9f4" stroke="#173f35" stroke-width="5" />
+            <circle cx="692" cy="463" r="60" fill="#d5f478" stroke="#173f35" stroke-width="5" />
+            <text x="92" y="173" text-anchor="middle" fill="#486052" font-size="24" font-weight="650">사용자에게 맞춰 반복</text>
+            <text x="418" y="326" text-anchor="middle" fill="#486052" font-size="24" font-weight="650">낮은 지불의사</text>
+            <text x="692" y="473" text-anchor="middle" fill="#173f35" font-size="27" font-weight="800">Problem</text>
+            <text x="692" y="505" text-anchor="middle" fill="#173f35" font-size="27" font-weight="800">first</text>
+          </svg>
+        </div>
+      </section>
+
+
+      <section class="slide section-divider section-divider--02" aria-hidden="true">
+        <div class="slide__inner">
+          <div><span class="divider-number">SECTION 02</span><h2>AI 시대의<br />경쟁력</h2><p class="divider-line">AI가 만드는 시대, 무엇이 남는가?</p></div>
+          <svg class="divider-art" viewBox="0 0 680 540" aria-hidden="true">
+            <circle cx="340" cy="270" r="84" fill="#d5f478" />
+            <circle cx="340" cy="270" r="177" fill="none" stroke="#486052" stroke-width="4" />
+            <circle cx="340" cy="270" r="246" fill="none" stroke="#486052" stroke-width="3" stroke-dasharray="14 18" />
+            <circle cx="164" cy="270" r="27" fill="#f7f9f4" /><circle cx="516" cy="270" r="27" fill="#f7f9f4" />
+            <circle cx="340" cy="24" r="20" fill="#d5f478" /><circle cx="340" cy="516" r="20" fill="#d5f478" />
+            <path d="M180 270 H256 M424 270 H500 M340 44 V186 M340 354 V496" stroke="#d5f478" stroke-width="5" stroke-linecap="round" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide ai-rival" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow eyebrow--light">GPT-6 Astra</p><h2>이제 AI가 만든다.</h2></div>
+          <div class="astra-layout">
+            <figure class="astra-demo">
+              <div class="astra-video-shell">
+                <button class="astra-video-start" id="astra-video-start" type="button" aria-label="Canva 시연 영상 재생">
+                  <span class="astra-video-start__icon" aria-hidden="true">▶</span>
+                  <strong>Canva 시연 재생</strong>
+                  <small>Reddit 영상 · 인터넷 연결 필요</small>
+                </button>
+                <iframe id="astra-video" title="Astra가 Canva에서 참고 사진을 점묘 형태의 초상으로 재현하는 Reddit 공유 30초 영상" data-src="https://embed.reddit.com/r/singularity/comments/1w7xe37/gpt6astra_draws_an_portrait_in_canva/?embed=true&amp;ref_source=embed&amp;ref=share&amp;utm_medium=widgets&amp;utm_source=embedv2&amp;utm_term=23&amp;utm_name=post_embed" allow="fullscreen; picture-in-picture" allowfullscreen hidden></iframe>
+              </div>
+              <figcaption><strong>Reddit 공유 시연 · 30초</strong><span>Canva에서 참고 사진을 점묘 형태로 재현한다.</span><a href="https://www.reddit.com/r/singularity/comments/1w7xe37/gpt6astra_draws_an_portrait_in_canva/" target="_blank" rel="noreferrer">u/WaqarKhanHD 게시물</a></figcaption>
+            </figure>
+            <div class="astra-capabilities">
+              <div class="astra-orb-stage"><div class="shader-frame" data-brand-orbs-island aria-label="OpenAI animated brand orb"></div></div>
+              <div class="astra-message">
+                <strong>구현만으로는 부족하다.</strong>
+                <p>AI가 잘 만들수록, 쉽게 따라 하기 어려운 강점을 찾아야 한다.</p>
+                <p class="astra-message__bridge">우리는 기억 기술을 검증했다 →</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide locomo-explain" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow eyebrow--quiet">AI가 긴 대화를 기억하는지 보는 평가</p><h2>긴 대화를<br />기억하는 시험</h2><p class="explain-copy">이전 사실과 시간 관계, 흩어진 정보를 연결해 답한다.</p><a class="locomo-source" href="https://arxiv.org/abs/2402.17753" target="_blank" rel="noreferrer">LoCoMo 논문</a></div>
+          <svg class="locomo-story" viewBox="0 0 880 570" role="img" aria-label="여러 날의 대화가 기억에 모이고 시간이 흐른 뒤 질문에 답하는 LoCoMo 평가 방식">
+            <defs><marker id="locomo-arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 L12 6 L0 12Z" fill="#173f35" /></marker></defs>
+            <path d="M102 151 C238 151 235 285 361 285 M102 285 H361 M102 419 C238 419 235 285 361 285 M487 285 H623" fill="none" stroke="#9fb199" stroke-width="5" stroke-linecap="round" marker-end="url(#locomo-arrow)" />
+            <g fill="#f7f9f4" stroke="#173f35" stroke-width="4">
+              <path d="M18 91 h185 a21 21 0 0 1 21 21 v59 a21 21 0 0 1-21 21H93l-42 31 12-31H39a21 21 0 0 1-21-21Z" />
+              <path d="M18 225 h185 a21 21 0 0 1 21 21 v59 a21 21 0 0 1-21 21H93l-42 31 12-31H39a21 21 0 0 1-21-21Z" />
+              <path d="M18 359 h185 a21 21 0 0 1 21 21 v59 a21 21 0 0 1-21 21H93l-42 31 12-31H39a21 21 0 0 1-21-21Z" />
+            </g>
+            <text x="117" y="140" text-anchor="middle" fill="#173f35" font-size="22" font-weight="750">DAY 1 · 대화</text><text x="117" y="274" text-anchor="middle" fill="#173f35" font-size="22" font-weight="750">DAY 12 · 대화</text><text x="117" y="408" text-anchor="middle" fill="#173f35" font-size="22" font-weight="750">DAY 28 · 대화</text>
+            <ellipse cx="424" cy="285" rx="96" ry="83" fill="#d5f478" stroke="#173f35" stroke-width="4" />
+            <text x="424" y="278" text-anchor="middle" fill="#173f35" font-size="27" font-weight="800">긴 대화의</text><text x="424" y="314" text-anchor="middle" fill="#173f35" font-size="27" font-weight="800">기억</text>
+            <path d="M623 211 h220 a22 22 0 0 1 22 22 v84 a22 22 0 0 1-22 22H746l-46 38 13-38h-68a22 22 0 0 1-22-22Z" fill="#173f35" />
+            <text x="744" y="261" text-anchor="middle" fill="#f7f9f4" font-size="21" font-weight="700">“그 약속은 언제였지?”</text><text x="744" y="293" text-anchor="middle" fill="#d5f478" font-size="19" font-weight="700">기억을 찾아 답하기</text>
+            <text x="744" y="406" text-anchor="middle" fill="#64715f" font-size="17">이해를 위한 가상 질문 예시</text>
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide score" aria-hidden="true">
+        <div class="slide__inner">
+          <div class="score-title"><div><p class="eyebrow eyebrow--quiet">긴 대화 기억 평가 결과</p><h2>세계 최고 수준에 도전할<br />가능성을 봤다</h2></div><p class="comparison-callout">공개된 기억 평가 점수<br />서로 다른 평가 조건</p></div>
+          <div class="score-comparison">
+            <img class="score-chart" src="./assets/locomo-reported-scores.svg" alt="0에서 100까지의 같은 축에 Mem0 92.5%, Zep 94.7%, Otter Mem 84.95%를 입력 순서대로 표시한 막대차트. 평가 조건이 달라 직접 순위 비교할 수 없다." />
+            <div class="score-conditions" aria-label="각 점수의 평가 조건">
+              <div class="score-condition"><strong>Mem0 · 92.5%</strong><span>공개 평가 · 1,540문항</span><span>2026.04 공개 점수</span></div>
+              <div class="score-condition"><strong>Zep · 94.7%</strong><span>공개 평가 · 1,540문항</span><span>공개 자료 기준</span></div>
+              <div class="score-condition"><strong>Otter Mem · 84.95%</strong><span>자체 평가 · 432문항</span><span>367문항 통과</span></div>
+            </div>
+          </div>
+          <div class="score-footer"><p><strong>평가 조건이 달라 직접 순위 비교는 어렵습니다.</strong> 같은 조건에서 다시 확인할 예정입니다.</p><div class="score-sources"><a href="https://mem0.ai/research/" target="_blank" rel="noreferrer">Mem0 공개 평가</a><a href="https://www.getzep.com/research/" target="_blank" rel="noreferrer">Zep 공개 평가</a></div></div>
+        </div>
+      </section>
+
+
+      <section class="slide memory-interface" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow eyebrow--quiet">앞으로의 기술 과제</p><h2>사람도 읽고 고치기 좋은 기억,<br />AI도 잘 찾는 기억</h2></div>
+          <svg class="memory-map" viewBox="0 0 1400 420" role="img" aria-label="대화와 결정, 관계가 사람이 읽는 노트와 AI가 찾는 표현으로 이어지고 사람의 수정이 다시 반영되는 설계 과제">
+            <defs><marker id="memory-arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 L12 6 L0 12Z" fill="#9ac13d" /></marker></defs>
+            <path d="M246 210 H548 C648 210 641 104 742 104 H1008 M548 210 C648 210 641 316 742 316 H1008" fill="none" stroke="#9fb199" stroke-width="6" stroke-linecap="round" />
+            <path d="M1008 138 C911 168 897 235 1008 286" fill="none" stroke="#9ac13d" stroke-width="4" stroke-linecap="round" stroke-dasharray="11 10" marker-end="url(#memory-arrow)" />
+            <ellipse cx="232" cy="210" rx="154" ry="92" fill="#e6eee1" stroke="#173f35" stroke-width="5" />
+            <rect x="1008" y="42" width="318" height="124" rx="24" fill="#ffffff" stroke="#173f35" stroke-width="5" />
+            <rect x="1008" y="254" width="318" height="124" rx="62" fill="#d5f478" stroke="#173f35" stroke-width="5" />
+            <circle cx="545" cy="210" r="25" fill="#d5f478" stroke="#173f35" stroke-width="5" />
+            <text x="232" y="202" text-anchor="middle" fill="#173f35" font-size="28" font-weight="760">대화 · 결정 · 관계</text>
+            <text x="232" y="241" text-anchor="middle" fill="#486052" font-size="21">기억의 원본</text>
+            <text x="1167" y="96" text-anchor="middle" fill="#173f35" font-size="27" font-weight="760">사람이 읽고 고치는 노트</text>
+            <text x="1167" y="137" text-anchor="middle" fill="#486052" font-size="20">이해와 수정</text>
+            <text x="878" y="218" text-anchor="middle" fill="#64715f" font-size="18" font-weight="700">수정이 다시 반영</text>
+            <text x="1167" y="307" text-anchor="middle" fill="#173f35" font-size="27" font-weight="760">AI가 잘 찾는 기억</text>
+            <text x="1167" y="348" text-anchor="middle" fill="#486052" font-size="20">필요할 때 꺼내 쓰기</text>
+          </svg>
+          <p class="design-task">사람이 고친 내용이 AI의 기억에도 잘 반영되는지 확인한다.</p>
+        </div>
+      </section>
+
+      <section class="slide section-divider section-divider--03" aria-hidden="true">
+        <div class="slide__inner">
+          <div><span class="divider-number">SECTION 03</span><h2>우리의 비전과<br />Otter Mem</h2><p class="divider-line">우리의 경쟁력은 누구의 삶을 위해 존재하는가?</p></div>
+          <svg class="divider-art" viewBox="0 0 680 540" aria-hidden="true">
+            <path d="M74 300 C184 204 275 369 381 270 S553 194 631 127" fill="none" stroke="#173f35" stroke-width="6" stroke-linecap="round" />
+            <ellipse cx="107" cy="300" rx="70" ry="43" transform="rotate(-8 107 300)" fill="#f7f9f4" stroke="#173f35" stroke-width="4" />
+            <ellipse cx="381" cy="270" rx="91" ry="55" transform="rotate(5 381 270)" fill="#e6eee1" stroke="#173f35" stroke-width="4" />
+            <ellipse cx="610" cy="144" rx="54" ry="34" transform="rotate(-10 610 144)" fill="#f7f9f4" stroke="#173f35" stroke-width="4" />
+            <path d="M88 296 h38 M97 313 h20" stroke="#173f35" stroke-width="5" stroke-linecap="round" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide vision-human" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow eyebrow--light">비전을 바꾼 것이 아니라</p><h2>사람이 인간다운<br />풍요로운 삶에<br />집중할 수 있게</h2><p class="vision-line">우리가 왜 만드는지 더 선명하게 했다.</p><p class="means">AI는 이 삶을 위한 수단이다.</p></div>
+          <svg class="human-orbit" viewBox="0 0 680 590" role="img" aria-label="사람을 중심으로 창의, 중요한 결정, 배움, 사랑과 돌봄이 이어지는 모습">
+            <path d="M340 294 C224 213 168 172 108 93 M340 294 C463 209 511 166 573 87 M340 294 C223 382 172 424 111 503 M340 294 C459 383 511 427 573 503" fill="none" stroke="#486052" stroke-width="5" stroke-linecap="round" />
+            <circle cx="340" cy="294" r="104" fill="#d5f478" />
+            <circle cx="108" cy="93" r="69" fill="#173f35" stroke="#d5f478" stroke-width="4" />
+            <circle cx="573" cy="87" r="69" fill="#173f35" stroke="#d5f478" stroke-width="4" />
+            <circle cx="111" cy="503" r="69" fill="#173f35" stroke="#d5f478" stroke-width="4" />
+            <circle cx="573" cy="503" r="76" fill="#173f35" stroke="#d5f478" stroke-width="4" />
+            <text x="340" y="307" text-anchor="middle" fill="#173f35" font-size="35" font-weight="800">사람</text>
+            <text x="108" y="102" text-anchor="middle" fill="#f7f9f4" font-size="25" font-weight="700">창의</text>
+            <text x="573" y="80" text-anchor="middle" fill="#f7f9f4" font-size="23" font-weight="700">중요한</text><text x="573" y="110" text-anchor="middle" fill="#f7f9f4" font-size="23" font-weight="700">결정</text>
+            <text x="111" y="512" text-anchor="middle" fill="#f7f9f4" font-size="25" font-weight="700">배움</text>
+            <text x="573" y="495" text-anchor="middle" fill="#f7f9f4" font-size="22" font-weight="700">사랑과</text><text x="573" y="524" text-anchor="middle" fill="#f7f9f4" font-size="22" font-weight="700">돌봄</text>
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide vision-stack" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow">Why not change the world?</p><h2>큰 비전은 작은 시작을 더 분명하게 만든다</h2><p class="stack-note">현재 제품과 장기 방향을 구분하고 연결한다.</p></div>
+          <div class="product-levels" aria-label="큰 비전에서 현재 검증 장면으로 이어지는 네 단계">
+            <article class="product-level"><span>큰 비전</span><div><h3>인간다운 풍요로운 삶</h3><p>창의, 결정, 배움, 사랑과 돌봄에 집중한다.</p></div></article>
+            <article class="product-level"><span>첫 제품</span><div><h3>신뢰할 수 있는 AI 기억과 업무 연속성</h3><p>사람이 확인하고 수정할 수 있게 한다.</p></div></article>
+            <article class="product-level"><span>초기 검증</span><div><h3>중단된 업무를 이어가기</h3><p>마지막 유효한 결정부터 다시 시작한다.</p></div></article>
+            <article class="product-level"><span>장기 제품</span><div><h3>지속적으로 맥락을 이해하고 돕는 AI</h3><p>사용자가 맡긴 범위에서 먼저 돕는다.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide rename" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow">미국 인터뷰에서 이어진 리브랜딩</p><p class="old-name">Nevermind</p><div class="rename-issues"><span>냉소적으로 들릴 수 있음</span><span>서비스가 불명확함</span><span>기억하기 어려움</span></div><p class="rename-copy">인간을 위한 비전을 친근한 이름과 경험으로 전한다.</p></div>
+          <div class="rename-new"><img class="wordmark" src="./assets/wordmark.svg" alt="Otter Mem" /><p>비전공자를 포함한 더 많은 사람이 이해하고 기억할 수 있게</p></div>
+          <svg class="rename-wave" viewBox="0 0 830 170" aria-hidden="true"><path d="M0 86 C118 21 214 145 336 78 S563 28 830 85" fill="none" stroke="#173f35" stroke-width="5" stroke-linecap="round" /><path d="M93 119 C236 72 328 161 482 111 S700 80 830 113" fill="none" stroke="#486052" stroke-width="3" stroke-linecap="round" opacity=".6" /></svg>
+        </div>
+      </section>
+
+      <section class="slide section-divider section-divider--04" aria-hidden="true">
+        <div class="slide__inner">
+          <div><span class="divider-number">SECTION 04</span><h2>다음 실행</h2><p class="divider-line">이 비전을 시장에서 어떤 순서로 검증할 것인가?</p></div>
+          <svg class="divider-art" viewBox="0 0 680 540" aria-hidden="true">
+            <path d="M72 425 C204 422 257 390 331 320 C429 227 459 120 606 93" fill="none" stroke="#173f35" stroke-width="7" stroke-linecap="round" stroke-dasharray="17 16" />
+            <circle cx="96" cy="422" r="31" fill="#d5f478" stroke="#173f35" stroke-width="4" />
+            <circle cx="333" cy="318" r="38" fill="#f7f9f4" stroke="#173f35" stroke-width="4" />
+            <circle cx="606" cy="93" r="48" fill="#d5f478" stroke="#173f35" stroke-width="4" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide roadmap" aria-hidden="true">
+        <div class="slide__inner">
+          <div class="roadmap-heading">
+            <div><p class="eyebrow">텍스코어 자금 활용 계획 · 서울</p><h2>고객이 남을 때까지<br />과정을 다듬는다</h2></div>
+            <p class="funding">텍스코어 자금으로 서울에서 고객을 만나고, 문제와 지불의사를 확인한 뒤 실제 사용과 결제로 검증한다.</p>
+            <div class="jcurve-goal"><svg viewBox="0 0 86 36" aria-hidden="true"><path d="M4 29 C28 31 40 26 49 20 S62 5 82 4" fill="none" stroke="#173f35" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 6" /></svg><span>수익화 뒤 매출 J커브 목표</span></div>
+          </div>
+          <div class="funnel-wrap" aria-label="접점 만들기부터 반복 사용까지 검증할 다섯 단계 고객 확인 과정">
+            <div class="funnel-label"><strong>검증할 고객 여정</strong><span>앞으로 검증할 가설</span></div>
+            <div class="funnel-flow">
+              <article class="funnel-stage" style="--stage-w: 100%"><div class="funnel-stage__inner"><span class="funnel-stage__number">01</span><h3>접점 만들기</h3><p>콜드메일 등으로 고객 만나기</p></div></article>
+              <article class="funnel-stage funnel-stage--focus" style="--stage-w: 87%"><div class="funnel-stage__inner"><span class="funnel-stage__number">02</span><h3>문제 검증</h3><p><strong>100명+ 추가 인터뷰</strong> · 서베이 · 지불의사</p></div></article>
+              <article class="funnel-stage" style="--stage-w: 74%"><div class="funnel-stage__inner"><span class="funnel-stage__number">03</span><h3>실사용 검증</h3><p>실제 업무 파일럿</p></div></article>
+              <article class="funnel-stage" style="--stage-w: 61%"><div class="funnel-stage__inner"><span class="funnel-stage__number">04</span><h3>유료 고객</h3><p>결제로 확인</p></div></article>
+              <article class="funnel-stage" style="--stage-w: 48%"><div class="funnel-stage__inner"><span class="funnel-stage__number">05</span><h3>반복 사용</h3><p>충성고객</p></div></article>
+            </div>
+            <svg class="funnel-return" viewBox="0 0 126 350" aria-hidden="true"><defs><marker id="funnel-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#173f35" /></marker></defs><path d="M18 315 C109 280 111 85 32 54" fill="none" stroke="#173f35" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 9" marker-end="url(#funnel-arrow)" /></svg>
+            <p class="funnel-loop">단계별 이탈 이유를 배우고<br />문제 검증으로 돌아간다.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide learning" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow eyebrow--quiet">텍스코어 자금 활용 계획 · 교육</p><h2>우리의 학습에도<br />의도적으로 투자한다</h2><strong class="amount">200만원+</strong><p class="plan-label">교육에 집행할 예정액</p><p class="more">텍스코어 자금으로 계획 · 필요하면 추가</p></div>
+          <svg class="learning-pebbles" viewBox="0 0 600 560" role="img" aria-label="학습 투자가 질문, 실험, 검증으로 이어지는 조약돌 흐름">
+            <path d="M92 462 C141 392 188 418 236 344 S363 287 408 209 S489 139 536 77" fill="none" stroke="#d4ddcf" stroke-width="9" stroke-linecap="round" />
+            <ellipse cx="96" cy="458" rx="64" ry="39" transform="rotate(-9 96 458)" fill="#e6eee1" stroke="#173f35" stroke-width="4" />
+            <ellipse cx="239" cy="338" rx="70" ry="42" transform="rotate(7 239 338)" fill="#d5f478" stroke="#173f35" stroke-width="4" />
+            <ellipse cx="411" cy="204" rx="77" ry="46" transform="rotate(-8 411 204)" fill="#e6eee1" stroke="#173f35" stroke-width="4" />
+            <ellipse cx="535" cy="78" rx="58" ry="35" transform="rotate(10 535 78)" fill="#d5f478" stroke="#173f35" stroke-width="4" />
+            <text x="96" y="467" text-anchor="middle" fill="#173f35" font-size="22" font-weight="750">질문</text><text x="239" y="347" text-anchor="middle" fill="#173f35" font-size="22" font-weight="750">학습</text><text x="411" y="213" text-anchor="middle" fill="#173f35" font-size="22" font-weight="750">실험</text><text x="535" y="87" text-anchor="middle" fill="#173f35" font-size="22" font-weight="750">검증</text>
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide community" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow">Venturers에 남기고 싶은 말</p><h2>안전한 곳에서,<br />더 날카로운 질문을</h2><p class="community-note">저부터 이 질문을 받고 싶습니다.<br /><strong>제가 놓친 문제부터 찔러주세요.</strong></p></div>
+          <div class="hard-questions" aria-label="함께 주고받고 싶은 세 가지 질문">
+            <div class="hard-question"><span>01</span><p>이 문제는 돈을 내고 해결할 만큼 아픈가?</p></div>
+            <div class="hard-question"><span>02</span><p>AI가 비슷한 제품을 만들면 무엇이 남는가?</p></div>
+            <div class="hard-question"><span>03</span><p>다음에는 어떤 가설을 확인해 올 것인가?</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide qa-v2" aria-hidden="true">
+        <div class="slide__inner">
+          <div><p class="eyebrow">Q&amp;A · 3분</p><h2>제가 놓친 문제부터<br />찔러주세요</h2><p class="meta">기술, 브랜드, 다음 실험</p></div>
+          <svg class="qa-network" viewBox="0 0 650 560" role="img" aria-label="질문과 대화를 나타내는 연결된 말풍선">
+            <path d="M174 170 C264 103 390 104 474 170 M197 364 C286 427 395 420 470 356 M174 170 C119 251 131 306 197 364 M474 170 C524 245 523 303 470 356" fill="none" stroke="#173f35" stroke-width="5" stroke-linecap="round" />
+            <path d="M48 78 h260 a28 28 0 0 1 28 28 v90 a28 28 0 0 1-28 28 H146 l-56 44 16-44H76a28 28 0 0 1-28-28Z" fill="#f7f9f4" stroke="#173f35" stroke-width="4" />
+            <path d="M310 292 h258 a28 28 0 0 1 28 28 v88 a28 28 0 0 1-28 28H460l-54 46 14-46H338a28 28 0 0 1-28-28Z" fill="#e6eee1" stroke="#173f35" stroke-width="4" />
+            <circle cx="143" cy="150" r="11" fill="#173f35" /><circle cx="192" cy="150" r="11" fill="#173f35" /><circle cx="241" cy="150" r="11" fill="#173f35" />
+            <circle cx="405" cy="365" r="11" fill="#173f35" /><circle cx="454" cy="365" r="11" fill="#173f35" /><circle cx="503" cy="365" r="11" fill="#173f35" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide goodbye" aria-hidden="true">
+        <svg class="goodbye-wave" viewBox="0 0 900 185" aria-hidden="true"><path d="M0 95 C128 20 241 157 374 85 S630 29 900 101" fill="none" stroke="#e6eee1" stroke-width="24" stroke-linecap="round" /><path d="M44 126 C186 78 310 161 470 115 S724 78 900 125" fill="none" stroke="#d4ddcf" stroke-width="4" stroke-linecap="round" /></svg>
+        <div class="slide__inner">
+          <div><p class="eyebrow eyebrow--quiet">Goodbye</p><h2>고맙습니다,<br />Venturers.</h2><p class="thanks">함께 나눈 고민을 다음 실험으로 이어가겠습니다.</p></div>
+          <img class="otter" src="./assets/otter.svg" alt="기억 조약돌을 든 Otter Mem 수달" />
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <nav class="chrome" aria-label="슬라이드 조작">
+    <button type="button" id="prev" aria-label="이전 슬라이드" title="이전 슬라이드 왼쪽 화살표">←</button>
+    <span class="slide-count" id="slide-count" aria-live="polite">1 / 21</span>
+    <button type="button" id="next" aria-label="다음 슬라이드" title="다음 슬라이드 오른쪽 화살표 또는 Space">→</button>
+    <button type="button" id="fullscreen" aria-label="전체 화면" title="전체 화면 F">전체</button>
+  </nav>
+  <div class="progress" aria-hidden="true"><div class="progress__bar" id="progress-bar"></div></div>
+  <div class="sr-only" id="announce" aria-live="polite"></div>
+
+  <script src="./assets/vendor/orbs/brand-orbs-island.js" defer></script>
+  <script>
+    (() => {
+      const deck = document.querySelector('#deck-v2');
+      const slideOrder = ['cover-v2', 'summer-overview', 'agenda', 'section-divider--01', 'kpc', 'problem-journey', 'section-divider--02', 'ai-rival', 'locomo-explain', 'score', 'memory-interface', 'section-divider--03', 'vision-human', 'vision-stack', 'rename', 'section-divider--04', 'roadmap', 'learning', 'community', 'qa-v2', 'goodbye'];
+      const slides = slideOrder.map((className) => document.querySelector(`#deck-v2 .${className}`));
+      slides.forEach((slide) => deck.append(slide));
+
+      const count = document.querySelector('#slide-count');
+      const progress = document.querySelector('#progress-bar');
+      const announce = document.querySelector('#announce');
+      const astraVideo = document.querySelector('#astra-video');
+      const astraVideoStart = document.querySelector('#astra-video-start');
+      let index = 0;
+      let touchStartX = 0;
+      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+      function initialIndex() {
+        const match = location.hash.match(/^#(?:slide-)?(\d+)$/);
+        return match ? clamp(Number(match[1]) - 1, 0, slides.length - 1) : 0;
+      }
+
+      function updateScale() {
+        const scale = Math.min(innerWidth / 1600, innerHeight / 900);
+        deck.style.setProperty('--deck-scale', String(scale));
+        document.documentElement.style.setProperty('--ui-scale', String(Math.max(0.55, Math.min(1, scale))));
+      }
+
+      function syncAstraVideo(active) {
+        if (!astraVideo || active) return;
+        if (astraVideo.getAttribute('src')) astraVideo.removeAttribute('src');
+        astraVideo.hidden = true;
+        if (astraVideoStart) astraVideoStart.hidden = false;
+      }
+
+      function showSlide(nextIndex, { replace = false } = {}) {
+        index = clamp(nextIndex, 0, slides.length - 1);
+        syncAstraVideo(index === 7);
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === index;
+          slide.setAttribute('aria-hidden', String(!active));
+          if (active) slide.setAttribute('aria-current', 'step');
+          else slide.removeAttribute('aria-current');
+        });
+        count.textContent = `${index + 1} / ${slides.length}`;
+        progress.style.setProperty('--progress', `${((index + 1) / slides.length) * 100}%`);
+        announce.textContent = `${index + 1}번째 슬라이드`;
+        const hash = `#slide-${index + 1}`;
+        if (replace) history.replaceState(null, '', hash);
+        else history.pushState(null, '', hash);
+      }
+
+      async function toggleFullscreen() {
+        if (!document.fullscreenElement) await document.documentElement.requestFullscreen?.();
+        else await document.exitFullscreen?.();
+      }
+
+      document.querySelector('#prev').addEventListener('click', () => showSlide(index - 1));
+      document.querySelector('#next').addEventListener('click', () => showSlide(index + 1));
+      astraVideoStart?.addEventListener('click', () => {
+        if (index !== 7) return;
+        astraVideo.setAttribute('src', astraVideo.dataset.src);
+        astraVideo.hidden = false;
+        astraVideoStart.hidden = true;
+      });
+      document.querySelector('#fullscreen').addEventListener('click', toggleFullscreen);
+      addEventListener('keydown', (event) => {
+        const isTextInput = event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement || event.target?.isContentEditable;
+        const isButtonActivation = event.target instanceof HTMLButtonElement && (event.key === ' ' || event.key === 'Enter');
+        if (isTextInput || isButtonActivation) return;
+        if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); showSlide(index + 1); }
+        else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) { event.preventDefault(); showSlide(index - 1); }
+        else if (event.key === 'Home') { event.preventDefault(); showSlide(0); }
+        else if (event.key === 'End') { event.preventDefault(); showSlide(slides.length - 1); }
+        else if (event.key.toLowerCase() === 'f') { event.preventDefault(); toggleFullscreen(); }
+      });
+      addEventListener('hashchange', () => showSlide(initialIndex(), { replace: true }));
+      addEventListener('resize', updateScale);
+      deck.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0].screenX; }, { passive: true });
+      deck.addEventListener('touchend', (event) => {
+        const delta = event.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(delta) >= 60) showSlide(index + (delta < 0 ? 1 : -1));
+      }, { passive: true });
+
+      updateScale();
+      showSlide(initialIndex(), { replace: true });
+    })();
+  </script>
+</body>
+</html>

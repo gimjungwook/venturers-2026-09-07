@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="350" viewBox="0 0 1120 350" role="img" aria-labelledby="chart-title chart-desc">
+  <title id="chart-title">LoCoMo 공개 점수와 Otter Mem 내부 측정</title>
+  <desc id="chart-desc">서로 다른 평가 조건에서 공개된 점수. 동일 조건의 성능 순위 비교가 아님. Mem0 92.5퍼센트, Zep 94.7퍼센트, Otter Mem 84.95퍼센트.</desc>
+  <style>
+    .label { font: 650 25px Manrope, 'Apple SD Gothic Neo', 'Noto Sans KR', Arial, sans-serif; fill: #173f35; }
+    .value { font: 750 25px Manrope, 'Apple SD Gothic Neo', 'Noto Sans KR', Arial, sans-serif; fill: #173f35; }
+    .tick { font: 500 16px Manrope, Arial, sans-serif; fill: #64715f; }
+    .axis { stroke: #d4ddcf; stroke-width: 1; }
+  </style>
+  <rect width="1120" height="350" rx="20" fill="#f7f9f4"/>
+  <g aria-hidden="true">
+    <line class="axis" x1="260" y1="40" x2="1000" y2="40"/>
+    <line class="axis" x1="260" y1="40" x2="260" y2="310"/>
+    <line class="axis" x1="445" y1="40" x2="445" y2="310"/>
+    <line class="axis" x1="630" y1="40" x2="630" y2="310"/>
+    <line class="axis" x1="815" y1="40" x2="815" y2="310"/>
+    <line class="axis" x1="1000" y1="40" x2="1000" y2="310"/>
+  </g>
+  <g>
+    <text class="label" x="32" y="91">Mem0</text>
+    <rect x="260" y="65" width="684.5" height="34" rx="9" fill="#e6eee1"/>
+    <text class="value" x="965" y="91">92.5%</text>
+
+    <text class="label" x="32" y="181">Zep</text>
+    <rect x="260" y="155" width="700.78" height="34" rx="9" fill="#9ac13d"/>
+    <text class="value" x="981" y="181">94.7%</text>
+
+    <text class="label" x="32" y="271">Otter Mem</text>
+    <rect x="260" y="245" width="628.63" height="34" rx="9" fill="#d5f478" stroke="#173f35" stroke-width="2"/>
+    <text class="value" x="909" y="271">84.95%</text>
+  </g>
+  <g aria-hidden="true">
+    <text class="tick" x="260" y="333" text-anchor="middle">0</text>
+    <text class="tick" x="445" y="333" text-anchor="middle">25</text>
+    <text class="tick" x="630" y="333" text-anchor="middle">50</text>
+    <text class="tick" x="815" y="333" text-anchor="middle">75</text>
+    <text class="tick" x="1000" y="333" text-anchor="middle">100</text>
+  </g>
+</svg>
