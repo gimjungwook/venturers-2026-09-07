@@ -569,7 +569,7 @@
     .astra-layout { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: center; }
     .astra-demo { width: 100%; max-width: 820px; margin: 0; overflow: hidden; border: 1px solid rgba(247,249,244,.25); border-radius: 20px; background: #050608; box-shadow: 0 18px 48px rgba(0,0,0,.22); }
     .astra-video-shell { position: relative; height: 530px; overflow: hidden; background: #050608; }
-    .astra-video-shell > iframe { position: absolute; z-index: 1; top: 0; left: 50%; width: 640px; height: 740px; border: 0; background: transparent; transform: translateX(-50%) scale(.716216); transform-origin: top center; }
+    .astra-video-shell > iframe { position: absolute; z-index: 1; top: -1347px; left: -18px; width: 640px; height: 1450px; border: 0; clip-path: inset(754.25px 191px 427.5px 21px); background: transparent; transform: scale(1.82); transform-origin: top left; }
     .astra-video-shell > iframe[hidden] { display: none; }
     .astra-video-start { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 18px; width: 100%; border: 0; background: radial-gradient(circle at 50% 42%, #29483e 0, #101d19 48%, #050608 100%); color: var(--paper); cursor: pointer; }
     .astra-video-start[hidden] { display: none; }
@@ -580,6 +580,8 @@
     .astra-demo figcaption strong { color: var(--lime); font-size: 16px; white-space: nowrap; }
     .astra-demo figcaption span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .astra-demo figcaption a { margin-left: auto; color: #dce9df; text-underline-offset: 4px; white-space: nowrap; }
+    .astra-demo .astra-links { display: flex; gap: 12px; margin-left: auto; }
+    .astra-demo .astra-links a { margin-left: 0; }
     .astra-capabilities { display: grid; gap: 18px; align-content: center; }
     .astra-orb-stage { display: grid; width: 176px; height: 176px; justify-self: center; overflow: visible; place-items: center; }
     .astra-orb-stage .shader-frame { width: 56px; height: 56px; transform: scale(3); transform-origin: center; }
@@ -974,14 +976,14 @@
           <div class="astra-layout">
             <figure class="astra-demo">
               <div class="astra-video-shell">
-                <button class="astra-video-start" id="astra-video-start" type="button" aria-label="Canva 시연 영상 재생">
+                <button class="astra-video-start" id="astra-video-start" type="button" aria-label="Figma 시연 영상 재생">
                   <span class="astra-video-start__icon" aria-hidden="true">▶</span>
-                  <strong>Canva 시연 재생</strong>
-                  <small>Reddit 영상 · 인터넷 연결 필요</small>
+                  <strong>Figma 시연 재생</strong>
+                  <small>Threads 영상 · 인터넷 연결 필요</small>
                 </button>
-                <iframe id="astra-video" title="Astra가 Canva에서 참고 사진을 점묘 형태의 초상으로 재현하는 Reddit 공유 30초 영상" data-src="https://embed.reddit.com/r/singularity/comments/1w7xe37/gpt6astra_draws_an_portrait_in_canva/?embed=true&amp;ref_source=embed&amp;ref=share&amp;utm_medium=widgets&amp;utm_source=embedv2&amp;utm_term=23&amp;utm_name=post_embed" allow="fullscreen; picture-in-picture" allowfullscreen hidden></iframe>
+                <iframe id="astra-video" title="Astra가 Figma에서 브랜드 아이덴티티와 웹페이지를 디자인하는 Threads 공유 24초 영상" data-src="https://www.threads.net/@choi.openai/post/Dc8YT4GjlSH/embed" allow="fullscreen; picture-in-picture" allowfullscreen hidden></iframe>
               </div>
-              <figcaption><strong>Reddit 공유 시연 · 30초</strong><span>Canva에서 참고 사진을 점묘 형태로 재현한다.</span><a href="https://www.reddit.com/r/singularity/comments/1w7xe37/gpt6astra_draws_an_portrait_in_canva/" target="_blank" rel="noreferrer">u/WaqarKhanHD 게시물</a></figcaption>
+              <figcaption><strong>Threads 공유 시연 · 24초</strong><span>Figma에서 브랜드 보드와 웹 UI를 만든다.</span><span class="astra-links"><a href="https://www.threads.com/@choi.openai/post/Dc8YT4GjlSH" target="_blank" rel="noopener noreferrer">@choi.openai 게시물</a><a href="https://www.threads.com/search?q=astra%20diablo&amp;serp_type=default&amp;xmt=AQG0JmE3cUG-N5aH4bpVI-CHzP1j3xxQjDaVYKFQi9n6Z-6-432biJBoBiq0yc5lWc0MtaE" target="_blank" rel="noopener noreferrer">Astra 사례 더 보기 ↗</a></span></figcaption>
             </figure>
             <div class="astra-capabilities">
               <div class="astra-orb-stage"><div class="shader-frame" data-brand-orbs-island aria-label="OpenAI animated brand orb"></div></div>
