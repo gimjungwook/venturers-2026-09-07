@@ -383,7 +383,6 @@
     .kpc::before,
     .problem-journey::before { content: "01 · 현장에서 발견한 문제"; }
     .ai-rival::before,
-    .meme-reveal::before,
     .locomo-explain::before,
     .score::before,
     .memory-interface::before { content: "02 · AI 시대의 경쟁력"; }
@@ -589,22 +588,18 @@
     .astra-message p { color: #dce9df; font-size: 20px; line-height: 1.42; }
     .astra-message__bridge { margin-top: 4px; padding: 14px 16px; border-radius: 14px; background: var(--lime); color: var(--ink) !important; font-weight: 760; }
 
-    .meme-reveal { overflow: hidden; background: var(--paper); }
-    .meme-reveal .slide__inner { display: grid; grid-template-columns: minmax(0, 1fr) 460px; gap: 96px; align-items: center; }
-    .meme-reveal h2 { max-width: 760px; font-size: 66px; }
-    .meme-reveal .meme-lead { margin-top: 26px; max-width: 640px; color: var(--ink-soft); font-size: 24px; }
-    .meme-figure { display: grid; justify-items: center; gap: 14px; margin: 0; }
-    .meme-panel { display: block; width: 394px; padding: 0; overflow: hidden; border: 0; border-radius: 18px; color: inherit; background: #050608; box-shadow: var(--shadow); cursor: pointer; }
-    .meme-frame { position: relative; display: block; width: 100%; aspect-ratio: 348 / 574; overflow: hidden; }
+    .meme-reveal { padding: 24px; overflow: hidden; background: #000; }
+    .meme-reveal .slide__inner { display: grid; place-items: center; }
+    .meme-figure { display: grid; place-items: center; margin: 0; }
+    .meme-panel { display: block; height: 852px; padding: 0; overflow: hidden; border: 0; border-radius: 0; color: inherit; background: #000; box-shadow: none; cursor: pointer; }
+    .meme-frame { position: relative; display: block; height: 100%; aspect-ratio: 348 / 574; overflow: hidden; }
     .meme-frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
-    .meme-cover { position: absolute; z-index: 2; inset: 50% 0 0; display: grid; place-items: center; background: var(--pond); border-top: 3px solid var(--ink); transition: transform 220ms ease; }
-    .meme-cover::before { content: ""; width: 96px; height: 46px; border: 3px solid var(--ink); border-radius: 50%; background: var(--lime); }
-    .meme-cover::after { content: "→"; position: absolute; color: var(--ink); font-size: 31px; font-weight: 800; }
-    .meme-panel:focus-visible { outline: 5px solid var(--lime-deep); outline-offset: 7px; }
+    .meme-cover { position: absolute; z-index: 2; inset: 50% 0 0; background: #000; }
+    .meme-panel:focus-visible { outline: 4px solid var(--lime); outline-offset: 6px; }
     .meme-reveal.is-revealed .meme-panel { cursor: default; }
-    .meme-reveal.is-revealed .meme-cover { transform: translateY(101%); }
-    .meme-caption { min-height: 31px; color: var(--ink-soft); font-size: 20px; font-weight: 720; opacity: 0; transition: opacity 160ms ease 120ms; }
-    .meme-reveal.is-revealed .meme-caption { opacity: 1; }
+    .meme-reveal.is-revealed .meme-cover { display: none; }
+    .is-meme-stage .chrome,
+    .is-meme-stage .progress { display: none; }
 
     .memory-interface { background: var(--paper); }
     .memory-interface .slide__inner { display: grid; grid-template-rows: auto 1fr auto; }
@@ -814,7 +809,6 @@
       .meme-reveal { order: 8; }
       .ai-rival { order: 9; }
       .meme-reveal .meme-cover { display: none; }
-      .meme-reveal .meme-caption { opacity: 1; }
       .locomo-explain { order: 10; }
       .score { order: 11; }
       .memory-interface { order: 12; }
@@ -963,11 +957,6 @@
 
       <section class="slide meme-reveal" aria-hidden="true">
         <div class="slide__inner">
-          <div>
-            <p class="eyebrow eyebrow--quiet">AI 시대의 경쟁력 · 잠깐 쉬어가기</p>
-            <h2>잠깐,<br />이 질문을 보시죠</h2>
-            <p class="meme-lead">한 번 더 넘기면 이어집니다.</p>
-          </div>
           <figure class="meme-figure">
             <button class="meme-panel" id="meme-reveal" type="button" aria-label="AI의 창작 능력을 묻는 네 컷 밈 이어 보기" aria-expanded="false">
               <span class="meme-frame">
@@ -975,7 +964,6 @@
                 <span class="meme-cover" aria-hidden="true"></span>
               </span>
             </button>
-            <figcaption class="meme-caption" id="meme-caption" aria-hidden="true">이제는 되네요.</figcaption>
           </figure>
         </div>
       </section>
@@ -1226,7 +1214,6 @@
       const astraVideoStart = document.querySelector('#astra-video-start');
       const memeRevealButton = document.querySelector('#meme-reveal');
       const memeSlide = document.querySelector('.meme-reveal');
-      const memeCaption = document.querySelector('#meme-caption');
       let index = 0;
       let memeRevealed = false;
       let touchStartX = 0;
@@ -1255,7 +1242,6 @@
         memeSlide?.classList.toggle('is-revealed', revealed);
         memeRevealButton?.setAttribute('aria-expanded', String(revealed));
         memeRevealButton?.setAttribute('aria-label', revealed ? 'AI의 창작 능력을 묻는 네 컷 밈 전체' : 'AI의 창작 능력을 묻는 네 컷 밈 이어 보기');
-        memeCaption?.setAttribute('aria-hidden', String(!revealed));
         if (revealed && moveFocus) memeRevealButton?.blur();
       }
 
@@ -1279,6 +1265,7 @@
         const targetIndex = clamp(nextIndex, 0, slides.length - 1);
         if (targetIndex !== 7 || index !== 7) setMemeRevealed(false);
         index = targetIndex;
+        document.documentElement.classList.toggle('is-meme-stage', index === 7);
         syncAstraVideo(index === 8);
         slides.forEach((slide, slideIndex) => {
           const active = slideIndex === index;
